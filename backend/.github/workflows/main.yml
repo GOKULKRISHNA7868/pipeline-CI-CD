@@ -1,0 +1,39 @@
+name: Node.js Backend CI
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'backend/**'
+    branches: [ main ]
+
+jobs:
+  backend-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🔄 Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 📁 Navigate to backend
+      run: cd backend
+
+    - name: 🟢 Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - name: 📦 Install backend dependencies
+      run: cd backend && npm install
+
+    - name: 🧪 Optional: Run tests
+      run: echo "No tests yet"
+
+    - name: 🚀 Start backend server
+      run: |
+        cd backend
+        node server.js &
+        sleep 5
